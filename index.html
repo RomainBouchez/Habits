@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habit Tracker</title>
+    <title>GitHub Habit Tracker</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/Desktop-github-habits.css">
+    <!-- Mobile-optimized styles -->
+    <link rel="stylesheet" href="css/mobile-github-habits.css">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="#">Habit Tracker</a>
+            <a class="navbar-brand" href="#">
+                <i class="fab fa-github me-2"></i>GitHub Habit Tracker
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,7 +45,7 @@
         <!-- Login Form (shown if not logged in) -->
         <div id="login-section" class="card shadow-sm">
             <div class="card-body">
-                <h2 class="card-title text-center mb-4">Login to Your Habit Tracker</h2>
+                <h2 class="card-title text-center mb-4">Login to GitHub Habit Tracker</h2>
                 <form id="login-form">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
@@ -60,9 +67,15 @@
 
         <!-- Dashboard (shown after login) -->
         <div id="dashboard-section" class="d-none">
-            <h1 class="mb-4">Today's Habits</h1>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Today's Habits</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-habit-modal">
+                    <i class="fas fa-plus me-2"></i>Add New Habit
+                </button>
+            </div>
+            
             <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Current Streak</h5>
@@ -74,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Completion Rate</h5>
@@ -114,7 +127,7 @@
             <h1 class="mb-4">Habit Statistics</h1>
             <div class="row mb-4">
                 <div class="col-lg-6 mb-4">
-                    <div class="card">
+                    <div class="card stats-card">
                         <div class="card-body">
                             <h5 class="card-title">Completion History</h5>
                             <canvas id="completion-chart"></canvas>
@@ -122,7 +135,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">
-                    <div class="card">
+                    <div class="card stats-card">
                         <div class="card-body">
                             <h5 class="card-title">Streak History</h5>
                             <canvas id="streak-chart"></canvas>
@@ -130,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card stats-card">
                 <div class="card-body">
                     <h5 class="card-title">Habit Performance</h5>
                     <div class="table-responsive">
@@ -241,11 +254,17 @@
         </div>
     </div>
 
+    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Your JavaScript Files -->
     <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
     <script src="js/habits.js"></script>
     <script src="js/stats.js"></script>
+    <!-- GitHub Style Habit Tracking -->
+    <script src="js/github-habits.js"></script>
+    <script src="js/mobile-github-habits.js"></script>
 </body>
 </html>

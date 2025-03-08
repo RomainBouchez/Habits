@@ -1,0 +1,451 @@
+/* GitHub-Style Habit Tracker - Desktop Version */
+
+/* Base styling from your original styles.css */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #0d1117; /* GitHub dark theme background */
+    color: #c9d1d9; /* GitHub dark theme text color */
+}
+
+.container {
+    flex: 1;
+}
+
+/* GitHub Dark Theme Colors */
+:root {
+    --bg-color: #0d1117;
+    --card-bg: #161b22;
+    --text-color: #c9d1d9;
+    --border-color: #30363d;
+    --accent-color: #58a6ff;
+    --green-0: #0e1117;
+    --green-1: #0e4429;
+    --green-2: #006d32;
+    --green-3: #26a641;
+    --green-4: #39d353;
+    --orange: #f78166;
+    --yellow: #e3b341;
+    --purple: #8957e5;
+    --blue: #58a6ff;
+    --red: #f85149;
+}
+
+/* Habit Card Styling - GitHub Style */
+.habit-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.habit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.habit-card.completed {
+    border-left: 5px solid var(--green-3);
+}
+
+/* Category styling with GitHub theme colors */
+.health-category {
+    border-left: 5px solid var(--green-3); /* Green */
+}
+
+.productivity-category {
+    border-left: 5px solid var(--blue); /* Blue */
+}
+
+.learning-category {
+    border-left: 5px solid var(--purple); /* Purple */
+}
+
+.personal-category {
+    border-left: 5px solid var(--orange); /* Orange */
+}
+
+/* Checkbox styling */
+.habit-checkbox {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--card-bg);
+    position: relative;
+    vertical-align: middle;
+}
+
+.habit-checkbox:checked {
+    background-color: var(--green-3);
+    border-color: var(--green-3);
+}
+
+.habit-checkbox:checked::after {
+    content: "✓";
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Streak badge styling */
+.streak-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
+    background-color: var(--accent-color);
+}
+
+.streak-badge i {
+    margin-right: 4px;
+}
+
+/* GitHub-style contribution grid */
+.github-grid-container {
+    margin: 15px 0;
+}
+
+.github-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    margin-bottom: 8px;
+}
+
+.github-day {
+    aspect-ratio: 1/1;
+    border-radius: 2px;
+    background-color: var(--green-0);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.github-day:hover::after {
+    content: attr(data-date) " - " attr(data-value);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.github-day.level-0 { background-color: var(--green-0); }
+.github-day.level-1 { background-color: var(--green-1); }
+.github-day.level-2 { background-color: var(--green-2); }
+.github-day.level-3 { background-color: var(--green-3); }
+.github-day.level-4 { background-color: var(--green-4); }
+
+.day-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    margin-bottom: 5px;
+}
+
+.day-label {
+    text-align: center;
+    font-size: 9px;
+    color: #8b949e;
+}
+
+.month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.month-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.color-legend {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    color: #8b949e;
+    margin-top: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.legend-square {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+
+/* Stats section */
+.stats-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.stats-card .card-body {
+    padding: 1.25rem;
+}
+
+.stats-card .card-title {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Habit Stats Styling */
+.habit-stats {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #8b949e;
+}
+
+/* Progress bars */
+.progress {
+    background-color: var(--border-color);
+    height: 8px;
+}
+
+.progress-bar.bg-success {
+    background-color: var(--green-3) !important;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #8b949e;
+    margin-bottom: 15px;
+}
+
+/* Navbar styling */
+.navbar-dark {
+    background-color: #161b22 !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+    color: var(--text-color) !important;
+}
+
+.nav-link {
+    color: #8b949e !important;
+}
+
+.nav-link.active, .nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Bootstrap overrides */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.btn-primary:hover {
+    background-color: #4993e3;
+    border-color: #4993e3;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.form-control, .form-select {
+    background-color: #0d1117;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #0d1117;
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(88, 166, 255, 0.25);
+}
+
+.form-check-input {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s;
+}
+
+/* Completed animation */
+@keyframes completeFlash {
+    0% { background-color: var(--card-bg); }
+    50% { background-color: rgba(38, 166, 65, 0.2); }
+    100% { background-color: var(--card-bg); }
+}
+
+.complete-animation {
+    animation: completeFlash 1s;
+}
+
+/* Tables */
+.table {
+    color: var(--text-color);
+}
+
+.table thead th {
+    border-bottom-color: var(--border-color);
+    color: #8b949e;
+}
+
+.table td, .table th {
+    border-color: var(--border-color);
+}
+
+/* Login section */
+#login-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+/* Dark mode for Chart.js charts */
+canvas {
+    filter: invert(0.9) hue-rotate(180deg);
+}
+
+/* Habit icon styling */
+.habit-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+/* Fruit colors as background classes */
+.bg-orange { background-color: var(--orange); }
+.bg-yellow { background-color: var(--yellow); }
+.bg-green { background-color: var(--green-3); }
+.bg-blue { background-color: var(--blue); }
+.bg-purple { background-color: var(--purple); }
+.bg-red { background-color: var(--red); }
+
+/* Habit header styling */
+.habit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.habit-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.habit-subtitle {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+/* Streak info styling */
+.streak-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #8b949e;
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+/* Error notification styling */
+#error-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--red);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    max-width: 300px;
+    display: none;
+}
+
+/* Desktop-specific styles */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}

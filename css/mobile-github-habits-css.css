@@ -1,0 +1,253 @@
+/* GitHub-Style Habit Tracker - Mobile Version */
+
+/* Apply mobile optimizations when screen size is appropriate */
+@media (max-width: 767px) {
+    /* Adjust card container for mobile */
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Force 3 columns on mobile */
+        gap: 8px; /* Reduced gap between cards */
+    }
+
+    /* Make habit cards more compact */
+    .habit-card {
+        padding: 10px; /* Reduced padding */
+        margin-bottom: 10px; /* Reduced margin */
+    }
+
+    /* Adjust habit header for mobile */
+    .habit-header {
+        margin-bottom: 8px; /* Reduced margin */
+    }
+
+    .habit-title {
+        font-size: 11px; /* Smaller font size */
+        margin-bottom: 2px; /* Reduced margin */
+        word-break: break-word; /* Break long words */
+        line-height: 1.2;
+    }
+
+    .habit-subtitle {
+        font-size: 9px; /* Smaller font size */
+        line-height: 1.1;
+    }
+
+    /* Make habit icon smaller */
+    .habit-icon {
+        width: 24px; /* Smaller icon */
+        height: 24px; /* Smaller icon */
+        font-size: 12px; /* Smaller emoji */
+        min-width: 24px; /* Prevent shrinking */
+    }
+
+    /* Adjust GitHub grid for mobile */
+    .github-grid {
+        gap: 1px; /* Smaller gap between cells */
+    }
+
+    .github-day {
+        width: 5px; /* Fixed width */
+        height: 5px; /* Fixed height */
+        min-width: 5px; /* Prevent shrinking */
+        min-height: 5px; /* Prevent shrinking */
+        border-radius: 1px; /* Smaller radius */
+    }
+
+    /* Make the day labels smaller or hide them */
+    .day-labels {
+        display: none; /* Hide on mobile */
+    }
+
+    /* Adjust tooltip for mobile */
+    .github-day:hover::after {
+        top: -20px; /* Position closer */
+        font-size: 8px; /* Smaller font */
+        padding: 2px 4px; /* Smaller padding */
+        max-width: 80px; /* Limit width */
+        text-overflow: ellipsis; /* Add ellipsis for overflow */
+        overflow: hidden; /* Hide overflow */
+        white-space: nowrap;
+    }
+
+    /* Adjust legend for mobile */
+    .color-legend {
+        font-size: 7px; /* Smaller font */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center; /* Center items */
+        margin-top: 2px; /* Less margin */
+    }
+
+    .legend-item {
+        margin-right: 4px; /* Less margin */
+        margin-bottom: 1px; /* Add bottom margin */
+    }
+
+    .legend-square {
+        width: 5px; /* Smaller squares */
+        height: 5px; /* Smaller squares */
+        margin-right: 1px; /* Less margin */
+    }
+
+    /* Adjust streak info for mobile */
+    .streak-info {
+        font-size: 8px; /* Smaller font */
+        margin-top: 4px; /* Less margin */
+        margin-bottom: 6px; /* Less margin */
+    }
+
+    /* Adjust stats for mobile */
+    .habit-stats {
+        padding-top: 6px; /* Less padding */
+        margin-top: 6px; /* Less margin */
+    }
+
+    .stat-value {
+        font-size: 12px; /* Smaller font */
+    }
+
+    .stat-label {
+        font-size: 7px; /* Smaller font */
+    }
+
+    /* Adjust checkbox for mobile */
+    .habit-checkbox {
+        width: 16px; /* Smaller checkbox */
+        height: 16px; /* Smaller checkbox */
+    }
+
+    .habit-checkbox:checked::after {
+        font-size: 10px; /* Smaller checkmark */
+    }
+
+    .habit-checkbox-container {
+        margin-bottom: 4px !important; /* Less margin */
+    }
+
+    .habit-checkbox-container span {
+        font-size: 9px; /* Smaller text */
+        margin-left: 4px; /* Add space after checkbox */
+    }
+
+    /* Hide some elements on very small screens */
+    .month-title {
+        font-size: 10px;
+    }
+
+    /* Make streak badge smaller */
+    .streak-badge {
+        font-size: 0.7rem;
+        padding: 2px 4px;
+    }
+
+    /* Optimize habit progress section */
+    .habit-progress {
+        margin-bottom: 6px;
+    }
+
+    /* Optimize grid container */
+    .github-grid-container {
+        margin: 6px 0;
+    }
+
+    /* Adjust page container */
+    .container {
+        padding-left: 5px;
+        padding-right: 5px;
+        max-width: 100%;
+    }
+    
+    /* Simplify navbar */
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    /* Adjust headings */
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    /* Optimize modals for mobile */
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+}
+
+/* iPhone SE / Small device optimizations */
+@media (max-width: 375px) {
+    .github-day {
+        width: 4px;
+        height: 4px;
+        min-width: 4px;
+        min-height: 4px;
+    }
+    
+    .habit-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        min-width: 20px;
+    }
+    
+    .habit-title {
+        font-size: 10px;
+    }
+    
+    .habit-subtitle {
+        font-size: 8px;
+    }
+    
+    .stat-value {
+        font-size: 10px;
+    }
+    
+    .stat-label {
+        font-size: 6px;
+    }
+    
+    /* Ultra-compact layout for very small screens */
+    .card-container {
+        gap: 5px;
+    }
+    
+    .habit-card {
+        padding: 6px;
+    }
+    
+    /* Simplify stats further */
+    .habit-stats {
+        padding-top: 4px;
+        margin-top: 4px;
+    }
+}
+
+/* Orientation-specific adjustments */
+@media (max-width: 767px) and (orientation: landscape) {
+    /* In landscape mode, we can show slightly larger elements */
+    .card-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns in landscape */
+    }
+    
+    .github-day {
+        width: 6px;
+        height: 6px;
+        min-width: 6px;
+        min-height: 6px;
+    }
+}
+
+/* Fix for specific interaction issues on iOS */
+@supports (-webkit-touch-callout: none) {
+    .habit-checkbox {
+        /* iOS-specific checkbox enhancements */
+        border-width: 2px;
+    }
+    
+    /* Prevent iOS text size adjustment */
+    body {
+        -webkit-text-size-adjust: 100%;
+    }
+}
