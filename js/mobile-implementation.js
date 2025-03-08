@@ -1,271 +1,225 @@
-// Replace the current code in mobile-implementation.js with this file
+// mobile-implementation.js - Modified to keep only the Image 1 style
 
 document.addEventListener('DOMContentLoaded', function() {
     // Apply dark theme immediately
     document.body.classList.add('dark-theme');
     
-    // Check if we're on mobile
-    const isMobile = window.innerWidth <= 767;
+    // IMPORTANT: Do not check for mobile - we want the same layout for all screen sizes
+    // Initialize the three-card layout for all devices
+    initializeThreeCardLayout();
     
-    if (isMobile) {
-        // Replace the original content with mobile-optimized UI
-        initializeMobileUI();
+    // Remove any floating action buttons that might have been added
+    const existingFab = document.querySelector('.floating-action-button');
+    if (existingFab) {
+        existingFab.remove();
     }
 });
 
-function initializeMobileUI() {
-    // Hide original container content
-    const originalContainer = document.querySelector('.container');
-    if (originalContainer) {
-        // Preserve the container but hide its original content
-        const containerChildren = Array.from(originalContainer.children);
-        containerChildren.forEach(child => {
-            child.style.display = 'none';
-        });
+function initializeThreeCardLayout() {
+    // Make dashboard section visible
+    const dashboardSection = document.getElementById('dashboard-section');
+    if (dashboardSection) {
+        dashboardSection.classList.remove('d-none');
+    }
+    
+    // Get the container for habits
+    const habitsContainer = document.getElementById('today-habits-list');
+    if (habitsContainer) {
+        // Clear existing content
+        habitsContainer.innerHTML = '';
         
-        // Create and add our new mobile UI
-        const mobileUI = createMobileUI();
-        originalContainer.appendChild(mobileUI);
+        // Create a card container for the grid layout
+        const cardContainer = document.createElement('div');
+        cardContainer.className = 'three-card-container';
         
-        // Add floating action button
-        const floatingButton = createFloatingActionButton();
-        document.body.appendChild(floatingButton);
+        // Add the container to the original container
+        habitsContainer.appendChild(cardContainer);
+        
+        // Create the three specific habit cards from Image 1
+        createThreeSpecificCards();
     }
 }
 
-function createMobileUI() {
-    const mobileUI = document.createElement('div');
-    mobileUI.className = 'mobile-habit-tracker';
+function createThreeSpecificCards() {
+    const cardContainer = document.querySelector('.three-card-container');
+    if (!cardContainer) {
+        console.error("Card container not found!");
+        return;
+    }
     
-    // Create header
-    const header = document.createElement('div');
-    header.className = 'fruity-header';
-    header.innerHTML = `
-        <div class="app-title">
-            <span class="fruity-icon">🍐</span>
-            <span class="title-text">
-                <span class="fruity-text">F<span style="color:#FF5252">R</span><span style="color:#FF9800">U</span><span style="color:#FFEB3B">I</span><span style="color:#4CAF50">T</span><span style="color:#2196F3">Y</span> HABITS</span>
-                <span class="day-indicator">| Saturday</span>
-            </span>
-        </div>
-        <div class="settings-icon">
-            <i class="fas fa-cog"></i>
-        </div>
-    `;
+    // Create exactly 3 specific habits matching Image 1
+    const specificHabits = [
+        {
+            id: 1,
+            name: 'Daily Exercise',
+            category_name: 'Health',
+            current_streak: 5,
+            longest_streak: 10,
+            completed: true,
+            message: 'Impressive streak! 🔥'
+        },
+        {
+            id: 2,
+            name: 'Read 30 Minutes',
+            category_name: 'Learning',
+            current_streak: 0,
+            longest_streak: 7,
+            completed: false,
+            message: 'Start your streak today! 🚀'
+        },
+        {
+            id: 3,
+            name: 'Meditate',
+            category_name: 'Personal',
+            current_streak: 2,
+            longest_streak: 14,
+            completed: false,
+            message: 'Building momentum! 💪'
+        }
+    ];
     
-    // Create habit cards container
-    const habitsContainer = document.createElement('div');
-    habitsContainer.className = 'habits-container';
-    
-    // Add sample habit cards
-    habitsContainer.appendChild(createHabitCard({
-        id: 1,
-        name: 'Weekly Review',
-        category: 'Productivity',
-        icon: 'briefcase',
-        streak: 1,
-        trophies: 1,
-        message: 'Great start! Keep going! ⭐',
-        color: '#2196F3',
-        completed: true,
-        frequency: 'daily'
-    }));
-    
-    habitsContainer.appendChild(createHabitCard({
-        id: 2,
-        name: 'Sleep Early',
-        category: 'Health',
-        icon: 'bed',
-        streak: 0,
-        trophies: 0,
-        message: 'Start your streak today! 🚀',
-        color: '#FF5252',
-        completed: false,
-        frequency: 'daily'
-    }));
-    
-    habitsContainer.appendChild(createHabitCard({
-        id: 3,
-        name: 'Study',
-        category: 'Learning',
-        icon: 'graduation-cap',
-        streak: 0,
-        trophies: 1,
-        message: 'Start your streak today! 🚀',
-        color: '#9C27B0',
-        completed: false,
-        frequency: 'daily'
-    }));
-    
-    mobileUI.appendChild(header);
-    mobileUI.appendChild(habitsContainer);
-    
-    return mobileUI;
+    // Add habit cards to container
+    specificHabits.forEach(habit => {
+        const card = createHabitCardImageOneStyle(habit);
+        cardContainer.appendChild(card);
+    });
 }
 
-function createHabitCard(habit) {
+// Create a habit card with the specific style from Image 1
+function createHabitCardImageOneStyle(habit) {
     const card = document.createElement('div');
-    card.className = 'habit-card';
-    card.style.setProperty('--habit-color', habit.color);
+    card.className = 'habit-card image-one-style';
+    card.id = `habit-card-${habit.id}`;
     
-    // Create card header
-    const cardHeader = document.createElement('div');
-    cardHeader.className = 'habit-header';
+    // Determine color based on category
+    let cardColor = '#2196F3'; // Default blue
+    if (habit.category_name) {
+        const category = habit.category_name.toLowerCase();
+        if (category.includes('health')) cardColor = '#4CAF50'; // Green
+        else if (category.includes('product')) cardColor = '#2196F3'; // Blue
+        else if (category.includes('learn')) cardColor = '#9C27B0'; // Purple
+        else if (category.includes('personal')) cardColor = '#FF9800'; // Orange
+    }
     
-    // Icon and title
-    const iconClass = `fas fa-${habit.icon}`;
-    cardHeader.innerHTML = `
-        <div class="habit-title-area">
-            <div class="habit-icon-container" style="background-color: ${habit.color}20;">
-                <i class="${iconClass}" style="color: ${habit.color};"></i>
-            </div>
-            <div class="habit-details">
-                <h3>${habit.name}</h3>
-                <div class="habit-metadata">
-                    ${habit.streak > 0 ? 
-                    `<div class="streak-info"><i class="fas fa-fire"></i> ${habit.streak}d</div>` 
-                    : '<div class="streak-info"><i class="fas fa-fire"></i> 0d</div>'}
-                    ${habit.trophies > 0 ? 
-                    `<div class="trophy-info"><i class="fas fa-trophy"></i> ${habit.trophies}d</div>` 
-                    : ''}
-                </div>
-            </div>
-        </div>
-        <div class="habit-actions">
-            <button class="action-button settings-button">
-                <i class="fas fa-cog"></i>
-            </button>
-            <button class="action-button info-button">
-                <i class="fas fa-info-circle"></i>
-            </button>
-            <button class="action-button calendar-button">
-                <i class="fas fa-calendar-alt"></i>
-            </button>
-        </div>
-    `;
+    // Determine icon based on name
+    let icon = '🏃';
+    if (habit.name.includes('Exercise')) {
+        icon = '🏃';
+    } else if (habit.name.includes('Read')) {
+        icon = '📚';
+    } else if (habit.name.includes('Meditate')) {
+        icon = '🧘';
+    }
     
-    // Create message
-    const message = document.createElement('div');
-    message.className = 'habit-message';
-    message.textContent = habit.message;
-    message.style.color = habit.color;
-    
-    // Create GitHub-style grid
-    const gridContainer = document.createElement('div');
-    gridContainer.className = 'grid-container';
-    
-    const grid = document.createElement('div');
-    grid.className = 'github-grid';
-    
-    // Create a 7x7 grid (49 days)
+    // Create Github-style grid HTML
+    let gridHtml = '';
     for (let i = 0; i < 49; i++) {
-        const day = document.createElement('div');
-        day.className = 'github-day';
+        // Specific pattern for each habit to match Image 1
+        let isActive = false;
         
-        // Randomly determine if the day is filled
-        // In a real app, this would come from your habit data
-        if (habit.completed && i < 5) {
-            day.style.backgroundColor = habit.color;
-            day.classList.add('completed-day');
-        } else if (Math.random() > 0.8 && i < 40) {
-            day.style.backgroundColor = habit.color;
-            day.classList.add('completed-day');
-        } else {
-            day.style.backgroundColor = '#1e2937';
+        if (habit.id === 1) { // Exercise - Green pattern
+            isActive = [0,1,4,5,6,12,24,30,31,35,36,39,40,42,48].includes(i);
+        } else if (habit.id === 2) { // Reading - Purple pattern
+            isActive = [10,11,16,17,18,22,23,24,27,33,38,39,40,41,42,46,47].includes(i);
+        } else if (habit.id === 3) { // Meditate - Orange pattern
+            isActive = [10,17,23,30,36,37,41,42,43,45,48].includes(i);
         }
         
-        grid.appendChild(day);
+        gridHtml += `<div class="github-day ${isActive ? 'active-day' : ''}"></div>`;
     }
     
-    gridContainer.appendChild(grid);
-    
-    // Create footer with category and stats
-    const footer = document.createElement('div');
-    footer.className = 'habit-footer';
-    footer.innerHTML = `
-        <div class="habit-category" style="color: ${habit.color};">${habit.category}</div>
-        <div class="habit-stats">
-            <div class="stat-buttons">
-                <button class="stat-button">
-                    <i class="fas fa-chart-line"></i>
+    card.innerHTML = `
+        <div class="habit-header">
+            <div class="habit-icon">${icon}</div>
+            <div class="habit-title">${habit.name}</div>
+            <div class="habit-actions">
+                <button class="action-button settings-button" data-habit-id="${habit.id}">
+                    <i class="fas fa-cog"></i>
                 </button>
-                <button class="stat-button">
-                    <i class="fas fa-comment-alt"></i>
+                <button class="action-button info-button" data-habit-id="${habit.id}">
+                    <i class="fas fa-info-circle"></i>
                 </button>
-                <button class="stat-button">
-                    <i class="fas fa-chart-bar"></i>
+                <button class="action-button calendar-button" data-habit-id="${habit.id}">
+                    <i class="fas fa-calendar-alt"></i>
                 </button>
-            </div>
-            <div class="frequency-display">
-                ${habit.completed ? '1/1d' : '0/1d'}
             </div>
         </div>
+        
+        <div class="habit-message">
+            ${habit.message}
+        </div>
+        
+        <div class="github-grid">
+            ${gridHtml}
+        </div>
+        
+        <div class="habit-footer">
+            <div class="habit-category">
+                ${habit.category_name}
+            </div>
+            <div class="habit-stats">
+                <span>${habit.completed ? '1/1d' : '0/1d'}</span>
+            </div>
+        </div>
+        
+        <div class="completion-indicator ${habit.completed ? 'completed' : ''}"></div>
     `;
     
-    // Add completion indicator on the right side
-    const completionIndicator = document.createElement('div');
-    completionIndicator.className = 'completion-indicator';
-    if (habit.completed) {
-        completionIndicator.classList.add('completed');
-    }
-    
-    // Assemble the card
-    card.appendChild(cardHeader);
-    card.appendChild(message);
-    card.appendChild(gridContainer);
-    card.appendChild(footer);
-    card.appendChild(completionIndicator);
-    
-    // Add event listeners
-    card.addEventListener('click', function() {
-        toggleHabitCompletion(card, habit);
-    });
+    // Add event listeners for buttons
+    setTimeout(() => {
+        addCardEventListeners(card, habit);
+    }, 0);
     
     return card;
 }
 
-function toggleHabitCompletion(cardElement, habit) {
-    const indicator = cardElement.querySelector('.completion-indicator');
-    const isCompleted = indicator.classList.contains('completed');
-    
-    if (isCompleted) {
-        indicator.classList.remove('completed');
-        habit.completed = false;
-        
-        // Update frequency display
-        const freqDisplay = cardElement.querySelector('.frequency-display');
-        freqDisplay.textContent = '0/1d';
-    } else {
-        indicator.classList.add('completed');
-        habit.completed = true;
-        
-        // Add animation
-        cardElement.classList.add('completion-animation');
-        setTimeout(() => {
-            cardElement.classList.remove('completion-animation');
-        }, 1000);
-        
-        // Update frequency display
-        const freqDisplay = cardElement.querySelector('.frequency-display');
-        freqDisplay.textContent = '1/1d';
-    }
-}
-
-function createFloatingActionButton() {
-    const button = document.createElement('button');
-    button.className = 'floating-action-button';
-    button.innerHTML = '<i class="fas fa-plus"></i>';
-    
-    button.addEventListener('click', function() {
-        // Show add habit modal - in a real app, this would open your modal
-        const modal = document.getElementById('add-habit-modal');
-        if (modal) {
-            const bootstrapModal = new bootstrap.Modal(modal);
-            bootstrapModal.show();
-        } else {
-            alert('Add Habit button clicked!');
+// Button event listeners
+function addCardEventListeners(card, habit) {
+    // Card click for completion toggle
+    card.addEventListener('click', function(e) {
+        // Only toggle completion if not clicking a button
+        if (!e.target.closest('.action-button')) {
+            toggleCompletion(habit.id);
         }
     });
     
-    return button;
+    // Button event listeners
+    const buttons = card.querySelectorAll('.action-button');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent card click
+            
+            if (this.classList.contains('settings-button')) {
+                alert(`Settings for ${habit.name}`);
+            } else if (this.classList.contains('info-button')) {
+                alert(`Info for ${habit.name}`);
+            } else if (this.classList.contains('calendar-button')) {
+                alert(`Calendar for ${habit.name}`);
+            }
+        });
+    });
+}
+
+// Toggle completion status
+function toggleCompletion(habitId) {
+    const card = document.getElementById(`habit-card-${habitId}`);
+    if (!card) return;
+    
+    const indicator = card.querySelector('.completion-indicator');
+    if (!indicator) return;
+    
+    // Toggle completion
+    if (indicator.classList.contains('completed')) {
+        indicator.classList.remove('completed');
+        card.querySelector('.habit-stats span').textContent = '0/1d';
+    } else {
+        indicator.classList.add('completed');
+        card.querySelector('.habit-stats span').textContent = '1/1d';
+        
+        // Add animation
+        card.classList.add('completion-animation');
+        setTimeout(() => {
+            card.classList.remove('completion-animation');
+        }, 1000);
+    }
 }
