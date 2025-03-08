@@ -1,0 +1,66 @@
+-- Create the database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS habit_tracker;
+USE habit_tracker;
+
+-- Create users table (for authentication)
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create habit categories table
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create habits table
+CREATE TABLE IF NOT EXISTS habits (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    category_id INT,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    frequency VARCHAR(20) NOT NULL, -- daily, weekly, custom
+    active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+);
+
+-- Create table for custom frequency (for habits that occur on specific days)
+CREATE TABLE IF NOT EXISTS habit_frequency (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    habit_id INT NOT NULL,
+    monday BOOLEAN DEFAULT FALSE,
+    tuesday BOOLEAN DEFAULT FALSE,
+    wednesday BOOLEAN DEFAULT FALSE,
+    thursday BOOLEAN DEFAULT FALSE,
+    friday BOOLEAN DEFAULT FALSE,
+    saturday BOOLEAN DEFAULT FALSE,
+    sunday BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (habit_id) REFERENCES habits(id) ON DELETE CASCADE
+);
+
+-- Create table for habit logs (tracking completions)
+CREATE TABLE IF NOT EXISTS habit_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    habit_id INT NOT NULL,
+    completed_date DATE NOT NULL,
+    completed BOOLEAN DEFAULT TRUE,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (habit_id) REFERENCES habits(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_habit_date (habit_id, completed_date)
+);
+
+-- Insert default categories
+INSERT INTO categories (name, description) VALUES
+('Health', 'Health and fitness related habits'),
+('Productivity', 'Work and productivity related habits'),
+('Learning', 'Education and skill development habits'),
+('Personal', 'Personal growth and lifestyle habits');
