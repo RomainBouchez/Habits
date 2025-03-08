@@ -1,0 +1,281 @@
+/* Add this to your mobile-habit-tracker.css file or create a new CSS file and link it */
+
+/* Dark Theme Variables */
+:root {
+    --dark-bg: #121212;
+    --card-bg: #1e1e1e;
+    --card-border: #2c2c2c;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --blue-color: #2196F3;
+    --red-color: #FF5252;
+    --purple-color: #9C27B0;
+    --green-color: #4CAF50;
+    --orange-color: #FF9800;
+    --yellow-color: #FFEB3B;
+}
+
+/* Dark Theme Global Styles */
+.dark-theme {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+}
+
+.dark-theme .navbar {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid #2c2c2c;
+}
+
+.dark-theme .card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+.dark-theme .btn-primary {
+    background-color: var(--blue-color);
+    border-color: var(--blue-color);
+}
+
+.dark-theme .text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/* Mobile Habit Tracker Specific Styles */
+.mobile-habit-tracker {
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.fruity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.app-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fruity-icon {
+    font-size: 1.8rem;
+}
+
+.title-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.fruity-text {
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.day-indicator {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.settings-icon {
+    background-color: #2467cc;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Habit Card Styles */
+.habits-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+}
+
+.habit-card {
+    background-color: #192734;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    padding: 15px;
+    --habit-color: #2196F3; /* Default, will be overridden */
+}
+
+.habit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.habit-title-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.habit-icon-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.habit-details h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.habit-metadata {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.streak-info, .trophy-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #8b949e;
+    font-size: 0.9rem;
+}
+
+.habit-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    background-color: transparent;
+    border: none;
+    color: #8b949e;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.habit-message {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* GitHub-style grid */
+.grid-container {
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.github-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.github-day {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.github-day:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+.habit-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.habit-category {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.habit-stats {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.stat-button {
+    background-color: transparent;
+    border: none;
+    color: #8b949e;
+    font-size: 0.9rem;
+    padding: 0;
+    cursor: pointer;
+}
+
+.frequency-display {
+    color: #8b949e;
+    font-size: 0.9rem;
+}
+
+/* Completion indicator */
+.completion-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #2c2c2c;
+    transition: background-color 0.3s;
+}
+
+.completion-indicator.completed {
+    background-color: var(--green-color);
+}
+
+/* Floating Action Button */
+.floating-action-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes completionPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.completion-animation {
+    animation: completionPulse 0.5s ease;
+}
